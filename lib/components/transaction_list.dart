@@ -8,45 +8,51 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _transactions.map((t) {
-        var valuePrice = t.value.toStringAsFixed(2);
-        return Card(
-            child: Row(
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.purple, width: 2)),
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                'R\$ $valuePrice',
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.purple),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return SizedBox(
+      height: 300,
+      child: SingleChildScrollView(
+        child: Column(
+          children: _transactions.map((t) {
+            var valuePrice = t.value.toStringAsFixed(2);
+            return Card(
+                child: Row(
               children: <Widget>[
-                Text(
-                  t.title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.purple, width: 2)),
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    'R\$ $valuePrice',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.purple),
                   ),
                 ),
-                Text(
-                  DateFormat('d MMM y').format(t.date),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 100, 100, 100)),
-                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      t.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      DateFormat('d MMM y').format(t.date),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 100, 100, 100)),
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
-        ));
-      }).toList(),
+            ));
+          }).toList(),
+        ),
+      ),
     );
   }
 }
