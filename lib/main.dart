@@ -5,15 +5,37 @@ import 'package:expenses/components/transaction_list.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 
-main() => runApp(const ExpensesApp());
+main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
-  const ExpensesApp({super.key});
+  ExpensesApp({super.key});
+  final ThemeData tema = ThemeData();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
+    return MaterialApp(
+      home: const MyHomePage(),
+      theme: tema.copyWith(
+        colorScheme: tema.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+        textTheme: tema.textTheme.copyWith(
+          titleLarge: const TextStyle(
+            fontFamily: 'Quicksand',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
