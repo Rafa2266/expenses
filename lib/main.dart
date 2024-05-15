@@ -56,14 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  final _transactions = [
-    Transaction(
+  final List<Transaction> _transactions = [
+    /* Transaction(
         id: 't1',
         title: 'Novo tênis de corrida',
         value: 315.20,
         date: DateTime.now()),
     Transaction(
-        id: 't2', title: 'Novo Headset', value: 245.50, date: DateTime.now())
+        id: 't2', title: 'Novo Headset', value: 245.50, date: DateTime.now()) */
   ];
 
   _addTransaction(String title, double value) {
