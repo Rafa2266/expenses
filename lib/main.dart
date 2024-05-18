@@ -61,21 +61,39 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
       id: 't0',
       title: 'celular',
-      value: 1200,
+      value: 600,
       date: DateTime.now().subtract(const Duration(days: 6)),
     ),
     Transaction(
       id: 't1',
-      title: 'Novo tênis de corrida',
+      title: 'tênis de corrida',
       value: 315.20,
       date: DateTime.now().subtract(const Duration(days: 3)),
     ),
     Transaction(
       id: 't2',
-      title: 'Novo Headset',
+      title: 'Headset',
       value: 245.50,
       date: DateTime.now().subtract(const Duration(days: 1)),
-    )
+    ),
+    Transaction(
+      id: 't3',
+      title: 'hamburgeria',
+      value: 120.70,
+      date: DateTime.now().subtract(const Duration(days: 2)),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Pulseira',
+      value: 300,
+      date: DateTime.now().subtract(const Duration(days: 4)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'caixa de chocolate',
+      value: 34.50,
+      date: DateTime.now().subtract(const Duration(days: 3)),
+    ),
   ];
 
   List<Transaction> _recentTransactions() {
