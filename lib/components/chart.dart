@@ -48,7 +48,7 @@ class Chart extends StatelessWidget {
               child: ChartBar(
                 label: tr['day'].toString(),
                 price: price,
-                percentage: price / _weekTotalValue,
+                percentage: _weekTotalValue == 0 ? 0 : price / _weekTotalValue,
               ),
             );
           }).toList(),
