@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Transaction> _transactions = [
-    /* Transaction(
+    Transaction(
       id: 't0',
       title: 'celular',
       value: 600,
@@ -93,8 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'caixa de chocolate',
       value: 34.50,
       date: DateTime.now().subtract(const Duration(days: 3)),
-    ), */
+    ),
   ];
+
+  bool _showChart = false;
 
   List<Transaction> _recentTransactions() {
     return _transactions.where((element) {
@@ -124,21 +126,46 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Despesas pessoais"),
-        actions: <Widget>[
+    bool isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final appBar = AppBar(
+      title: const Text("Despesas pessoais"),
+      actions: <Widget>[
+        if (isLandScape)
           IconButton(
-              onPressed: () => _openTransactionFormModal(context),
-              icon: const Icon(Icons.add))
-        ],
-      ),
+              onPressed: () {
+                setState(() {
+                  _showChart = !_showChart;
+                });
+              },
+              icon: Icon(_showChart ? Icons.list : Icons.show_chart)),
+        IconButton(
+            onPressed: () => _openTransactionFormModal(context),
+            icon: const Icon(Icons.add)),
+      ],
+    );
+
+    final availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions()),
-            TransactionList(_transactions, _removeTransaction)
+            if (_showChart || !isLandScape)
+              SizedBox(
+                height: availableHeight * (isLandScape ? 0.7 : 0.3),
+                child: Chart(_recentTransactions()),
+              ),
+            if (!_showChart || !isLandScape)
+              SizedBox(
+                height: availableHeight * 0.7,
+                child: TransactionList(_transactions, _removeTransaction),
+              )
           ],
         ),
       ),

@@ -44,65 +44,72 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              decoration: const InputDecoration(labelText: 'Título'),
-              controller: _titleController,
-              onSubmitted: (_) => _submitForm(),
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Valor (R\$)'),
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              controller: _valueController,
-              onSubmitted: (_) => _submitForm(),
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(_selectDate == null
-                      ? 'Nenhuma data selecionada!'
-                      : "Data Selecionada: ${DateFormat('dd/MM/yyyy').format(_selectDate)}"),
-                ),
-                TextButton(
-                  onPressed: _showDatePicker,
-                  style: TextButton.styleFrom(
-                      foregroundColor: Theme.of(context).colorScheme.primary),
-                  child: const Text(
-                    'Selecionar data',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: 10,
+              right: 10,
+              left: 10,
+              bottom: 10 + MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                decoration: const InputDecoration(labelText: 'Título'),
+                controller: _titleController,
+                onSubmitted: (_) => _submitForm(),
+              ),
+              TextField(
+                decoration: const InputDecoration(labelText: 'Valor (R\$)'),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                controller: _valueController,
+                onSubmitted: (_) => _submitForm(),
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(_selectDate == null
+                        ? 'Nenhuma data selecionada!'
+                        : "Data Selecionada: ${DateFormat('dd/MM/yyyy').format(_selectDate)}"),
                   ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 70,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      _submitForm();
-                    },
-                    style: ElevatedButton.styleFrom(
+                  TextButton(
+                    onPressed: _showDatePicker,
+                    style: TextButton.styleFrom(
                         foregroundColor: Theme.of(context).colorScheme.primary),
                     child: const Text(
-                      'Nova transação',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      'Selecionar data',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                  ),
+                  )
                 ],
               ),
-            )
-          ],
+              SizedBox(
+                height: 70,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        _submitForm();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor:
+                              Theme.of(context).colorScheme.primary),
+                      child: const Text(
+                        'Nova transação',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
