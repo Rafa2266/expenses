@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'adaptative_button.dart';
+import 'adaptative_text_field.dart';
+import 'adaptative_date_picker.dart';
 
 class TransactionForm extends StatefulWidget {
   final void Function(String, double, DateTime) onSubmit;
@@ -25,23 +28,6 @@ class _TransactionFormState extends State<TransactionForm> {
     widget.onSubmit(title, value, _selectDate);
   }
 
-  _showDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now(),
-    ).then((pickedDate) {
-      if (pickedDate == null) {
-        return;
-      } else {
-        setState(() {
-          _selectDate = pickedDate;
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -55,56 +41,53 @@ class _TransactionFormState extends State<TransactionForm> {
               bottom: 10 + MediaQuery.of(context).viewInsets.bottom),
           child: Column(
             children: <Widget>[
-              TextField(
-                decoration: const InputDecoration(labelText: 'Título'),
-                controller: _titleController,
-                onSubmitted: (_) => _submitForm(),
+              AdaptativeTextField(
+                  _titleController, TextInputType.text, _submitForm, 'Título'),
+              AdaptativeTextField(
+                  _valueController,
+                  const TextInputType.numberWithOptions(decimal: true),
+                  _submitForm,
+                  'Valor (R\$)'),
+              AdaptativeDatePicker(
+                selectDate: _selectDate,
+                onDateChanged: (pickedDate) {
+                  setState(() {
+                    _selectDate = pickedDate;
+                  });
+                },
               ),
-              TextField(
-                decoration: const InputDecoration(labelText: 'Valor (R\$)'),
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                controller: _valueController,
-                onSubmitted: (_) => _submitForm(),
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(_selectDate == null
-                        ? 'Nenhuma data selecionada!'
-                        : "Data Selecionada: ${DateFormat('dd/MM/yyyy').format(_selectDate)}"),
-                  ),
-                  TextButton(
-                    onPressed: _showDatePicker,
-                    style: TextButton.styleFrom(
-                        foregroundColor: Theme.of(context).colorScheme.primary),
-                    child: const Text(
-                      'Selecionar data',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
+              /* SizedBox(
                 height: 70,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        _submitForm();
-                      },
-                      style: ElevatedButton.styleFrom(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(_selectDate == null
+                          ? 'Nenhuma data selecionada!'
+                          : "Data Selecionada: ${DateFormat('dd/MM/yyyy').format(_selectDate)}"),
+                    ),
+                    TextButton(
+                      onPressed: _showDatePicker,
+                      style: TextButton.styleFrom(
                           foregroundColor:
                               Theme.of(context).colorScheme.primary),
                       child: const Text(
-                        'Nova transação',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        'Selecionar data',
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    ),
+                    )
+                  ],
+                ),
+              ), */
+              SizedBox(
+                height: 30,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    AdaptativeButton(
+                        label: 'Nova transação',
+                        onPressed: () {
+                          _submitForm();
+                        })
                   ],
                 ),
               )

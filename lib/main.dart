@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Transaction> _transactions = [
-    Transaction(
+    /* Transaction(
       id: 't0',
       title: 'celular',
       value: 600,
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'caixa de chocolate',
       value: 34.50,
       date: DateTime.now().subtract(const Duration(days: 3)),
-    ),
+    ), */
   ];
 
   bool _showChart = false;
